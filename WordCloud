@@ -1,0 +1,32 @@
+#ChatGPT
+text1 = ' '.join(df[df['RecommendedIND'] == 1]['pr_ReviewText'])
+print ("There are {} words in the combination of all review.".format(len(text1)))
+# Create stopword list:
+stopwords = set(STOPWORDS)
+stopwords.update(["all"])
+
+# Generate a word cloud image
+wordcloud = WordCloud(width=900,height=500, max_words=200,stopwords=stopwords, background_color="white",relative_scaling=1,normalize_plurals=False).generate(text1)
+
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.show()
+
+#Reza
+temp = df.query('RecommendedIND == 1')
+temp = temp.fillna('')
+text1 = " ".join(t for t in temp.ReviewText)
+print ("There are {} words in the combination of all review.".format(len(text1)))
+# Create stopword list:
+stopwords = set(STOPWORDS)
+stopwords.update(["all"])
+
+# Generate a word cloud image
+wordcloud = WordCloud(width=900,height=500, max_words=200,stopwords=stopwords, 
+                      background_color="white",
+                      relative_scaling=1,normalize_plurals=False).generate(text1)
+
+# Display the generated image:
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.show()
