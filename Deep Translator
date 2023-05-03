@@ -1,0 +1,19 @@
+from deep_translator import GoogleTranslator
+import time
+trans1 = GoogleTranslator(source='auto', target='zh-CN') # Attempting Chinese Mandarin (simple).
+trans2 = GoogleTranslator(source='auto', target='en')
+def back_trans(x):
+    # time.sleep(10)
+    y = trans1.translate(str(x))
+    time.sleep(1)
+    z = trans2.translate(str(y))
+    return z
+tqdm.pandas() # To display the progress
+new_data = train.query('label==1').sample(200,
+                                          random_state=1
+                                         ).answer.progress_apply(
+    lambda x: back_trans(x))
+new_data = pd.DataFrame(new_data[:200])
+new_data['label']=1
+train = train.drop(columns = 'index')
+train = pd.concat([train.reset_index(),new_data.reset_index()]).sample(frac=1,random_state=1) # Add the translated answers to train.
