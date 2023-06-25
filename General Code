@@ -1,4 +1,4 @@
-
+# Summarize dataframe
 def summarize_dataframe(df):
     """Summarize a dataframe, and report missing values."""
     missing_values = pd.concat([pd.DataFrame(df.columns, columns=['Variable Name']), 
@@ -8,3 +8,6 @@ def summarize_dataframe(df):
                      axis=1).set_index('Variable Name')
     with pd.option_context("display.max_rows", 1000):
         display(pd.concat([missing_values, df.describe(include='all').transpose()], axis=1).fillna(""))
+
+# Concat dataframe - pandas
+demo_df = pd.concat([demo1_df, demo2_df])
