@@ -1,0 +1,42 @@
+import numpy as np # Library for math operations
+import pandas as pd # Library for data handling
+from sksurv.nonparametric import kaplan_meier_estimator # Library for survival analysis
+import matplotlib.pyplot as plt # Library for plotting
+import seaborn as sns # Another library for plotting
+plt.style.use('fivethirtyeight') # Set the styling to FiveThirtyEight setting.
+
+#load data
+data = pd.read_csv("data.csv") # Read data into a data frame
+
+data = data.dropna() # Delete null values (Drop missing data)
+data = data[data.lenfol<2100] # Drop the observations from post study
+data.head(3) # Display the first 3 rows of data
+
+#load package and create plot
+from sksurv.nonparametric import kaplan_meier_estimator # Load the necessary package
+
+time, survival_prob = kaplan_meier_estimator(data.fstat.astype(bool), data["lenfol"]) # Create the plot objects
+
+fig, ax = plt.subplots()
+sns.lineplot(y = survival_prob, x=time, drawstyle='steps-post')
+ax.set_ylim(0,1)
+plt.show()
+
+
+adata = pd.DataFrame(zip(time, survival_prob)) # Put the time and survival columns in a dataframe
+adata.columns = ['Time','Survival_Rate'] # Rename the columns of the dataframe
+adata[adata['Time']==497] # Return the survival rate for time = 497 days
+
+#Survival plot for categories
+mdf = data[data.gender==0] # Male patients
+fdf = data[data.gender==1] # Female patients
+
+mtime, msurvival_prob = kaplan_meier_estimator(mdf.fstat.astype(bool), mdf["lenfol"])
+ftime, fsurvival_prob = kaplan_meier_estimator(fdf.fstat.astype(bool), fdf["lenfol"])
+
+#specific time and gender
+mdata = pd.DataFrame(zip(mtime,msurvival_prob))
+mdata.columns = ['Time','Survival_Rate']
+
+fdata = pd.DataFrame(zip(ftime,fsurvival_prob))
+fdata.columns = ['Time','Survival_Rate']
