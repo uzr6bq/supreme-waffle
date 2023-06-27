@@ -1,3 +1,6 @@
+# Split Code
+trainData, testData = train_test_split(df, test_size=.20, random_state=201)
+
 # Summarize dataframe
 def summarize_dataframe(df):
     """Summarize a dataframe, and report missing values."""
