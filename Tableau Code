@@ -1,0 +1,3 @@
+#How to create a side-by-side bar graph divided by year with certain space to the marks of the next month
+# Create following calculation [Month]:
+MONTH([Order Date])+0.2*(YEAR([Order Date])-{FIXED:AVG(YEAR([Order Date]))})
