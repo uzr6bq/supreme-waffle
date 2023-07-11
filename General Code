@@ -1,3 +1,6 @@
+# import csv
+df = pd.read_csv(r'Path where the CSV file is stored\File name.csv')
+
 # Split Code
 trainData, testData = train_test_split(df, test_size=.20, random_state=201)
 
